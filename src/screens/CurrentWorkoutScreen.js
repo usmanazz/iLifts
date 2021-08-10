@@ -19,14 +19,29 @@ export const CurrentWorkoutScreen = observer(({ navigation }) => {
         return (
           <WorkoutCard
             onSetPress={(setIndex) => {
-              const val = e.sets[setIndex];
+              const set = e.sets[setIndex];
 
               let newValue;
 
-              if (val === "") newValue = `${e.reps}`;
-              else if (val === "0") newValue = "";
-              else newValue = `${parseInt(val) - 1}`;
-
+              // reps on current set is === reps so need to see if circle is
+              // displaying active or inactive number and increment accordingly
+              if (set.reps === `${e.reps}`) {
+                if (set.state === "inactive") {
+                  newValue = { ...set, state: "active" };
+                } else {
+                  newValue = {
+                    reps: `${parseInt(set.reps) - 1}`,
+                    state: "active",
+                  };
+                }
+              } else if (set.reps === "0") {
+                newValue = { reps: `${e.reps}`, state: "inactive" };
+              } else {
+                newValue = {
+                  reps: `${parseInt(set.reps) - 1}`,
+                  state: "active",
+                };
+              }
               e.sets[setIndex] = newValue;
             }}
             key={e.exercise}

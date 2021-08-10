@@ -13,22 +13,24 @@ export const WorkoutCard = observer(
 
         <View style={styles.bottomRow}>
           {sets.map((set, index) => {
-            if (set === "X")
+            if (set.reps === "X")
               return (
                 <View style={[styles.circle, styles.cancelledSet]} key={index}>
-                  <Text style={[styles.circleText, styles.cancelledText]}>
-                    X
-                  </Text>
+                  <Text style={[styles.circleText, styles.grayText]}>X</Text>
                 </View>
               );
 
-            if (set === "")
+            if (set.reps === "5" && set.state === "inactive")
               return (
                 <TouchableOpacity
                   onPress={() => onSetPress(index)}
                   style={[styles.circle, styles.inactiveSet]}
                   key={index}
-                />
+                >
+                  <Text style={[styles.inactiveText, styles.grayText]}>
+                    {set.reps}
+                  </Text>
+                </TouchableOpacity>
               );
 
             return (
@@ -37,7 +39,9 @@ export const WorkoutCard = observer(
                 style={styles.circle}
                 key={index}
               >
-                <Text style={[styles.whiteText, styles.circleText]}>{set}</Text>
+                <Text style={[styles.whiteText, styles.circleText]}>
+                  {set.reps}
+                </Text>
               </TouchableOpacity>
             );
           })}
@@ -58,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#1c1c1e",
   },
 
-  cancelledText: {
+  grayText: {
     color: "#636366",
   },
 
@@ -83,6 +87,10 @@ const styles = StyleSheet.create({
 
   inactiveSet: {
     backgroundColor: "#222224",
+  },
+
+  inactiveText: {
+    fontSize: 16,
   },
 
   topRow: {

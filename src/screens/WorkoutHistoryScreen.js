@@ -15,23 +15,41 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
           rootStore.workoutStore.currentExercises.push(
             {
               exercise: "Squat",
-              numSets: 5,
+              numSets: 4,
               reps: 5,
-              sets: ["5", "5", "5", "5", "5"],
+              sets: [
+                { reps: "5", state: "active" },
+                { reps: "5", state: "active" },
+                { reps: "5", state: "active" },
+                { reps: "5", state: "active" },
+                { reps: "X", state: "active" },
+              ],
               weight: 260,
             },
             {
               exercise: "Bench Press",
               numSets: 5,
               reps: 5,
-              sets: ["5", "5", "5", "5", "5"],
+              sets: [
+                { reps: "5", state: "active" },
+                { reps: "5", state: "active" },
+                { reps: "5", state: "active" },
+                { reps: "5", state: "active" },
+                { reps: "5", state: "active" },
+              ],
               weight: 200,
             },
             {
               exercise: "Deadlift",
               numSets: 1,
               reps: 5,
-              sets: ["5", "X", "X", "X", "X"],
+              sets: [
+                { reps: "5", state: "active" },
+                { reps: "X", state: "active" },
+                { reps: "X", state: "active" },
+                { reps: "X", state: "active" },
+                { reps: "X", state: "active" },
+              ],
               weight: 315,
             }
           );
