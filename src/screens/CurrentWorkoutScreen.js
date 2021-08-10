@@ -1,11 +1,16 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { WorkoutCard } from "../components/WorkoutCard";
+import { WorkoutTimer } from "../components/WorkoutTimer";
 import { RootStoreContext } from "../stores/RootStore";
 
 export const CurrentWorkoutScreen = observer(({ navigation }) => {
   const rootStore = useContext(RootStoreContext);
+
+  useEffect(() => {
+    return () => rootStore.workoutTimerStore.endTimer();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -19,6 +24,7 @@ export const CurrentWorkoutScreen = observer(({ navigation }) => {
         return (
           <WorkoutCard
             onSetPress={(setIndex) => {
+              rootStore.workoutTimerStore.startTimer();
               const set = e.sets[setIndex];
 
               let newValue;
@@ -35,6 +41,7 @@ export const CurrentWorkoutScreen = observer(({ navigation }) => {
                   };
                 }
               } else if (set.reps === "0") {
+                rootStore.workoutTimerStore.endTimer();
                 newValue = { reps: `${e.reps}`, state: "inactive" };
               } else {
                 newValue = {
@@ -51,6 +58,14 @@ export const CurrentWorkoutScreen = observer(({ navigation }) => {
           />
         );
       })}
+
+      {rootStore.workoutTimerStore.isRunning ? (
+        <WorkoutTimer
+          currentTime={rootStore.workoutTimerStore.display}
+          percentProgressLine={rootStore.workoutTimerStore.percentProgressLine}
+          onDeletePress={() => rootStore.workoutTimerStore.endTimer()}
+        />
+      ) : null}
     </View>
   );
 });
