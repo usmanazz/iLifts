@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
@@ -58,6 +59,22 @@ export const CurrentWorkoutScreen = observer(({ navigation }) => {
           />
         );
       })}
+
+      <Button
+        title="Save"
+        onPress={() => {
+          // using push to allow saving multiple workouts on the same day
+          const savedWorkout = {};
+          savedWorkout[dayjs().format("YYYY-DD-MM")] =
+            rootStore.workoutStore.currentExercises;
+          rootStore.workoutStore.history.push(savedWorkout);
+
+          // rootStore.workoutStore.history[dayjs().format("YYYY-DD-MM")] =
+          //   rootStore.workoutStore.currentExercises;
+          rootStore.workoutStore.currentExercises = [];
+          navigation.navigate("WorkoutHistory");
+        }}
+      />
 
       {rootStore.workoutTimerStore.isRunning ? (
         <WorkoutTimer

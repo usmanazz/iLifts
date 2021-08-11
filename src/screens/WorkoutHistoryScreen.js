@@ -1,14 +1,35 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import { HistoryCard } from "../components/HistoryCard";
 import { RootStoreContext } from "../stores/RootStore";
 
 export const WorkoutHistoryScreen = observer(({ navigation }) => {
   const rootStore = useContext(RootStoreContext);
 
+  const logAsyncData = async () => {
+    try {
+      console.log(await AsyncStorage.getItem("workout"));
+    } catch (err) {
+      console.error("error logging data");
+    }
+  };
+
+  const clearAppData = async function () {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      await AsyncStorage.multiRemove(keys);
+    } catch (error) {
+      console.error("Error clearing app data.");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text>Workout History Screen</Text>
+      <Button title="log data" onPress={logAsyncData} />
+      <Button title="clear async storage" onPress={clearAppData} />
       <Button
         title="create workout"
         onPress={() => {
@@ -56,6 +77,25 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
           navigation.navigate("CurrentWorkout");
         }}
       />
+
+      {/* {rootStore.workoutStore.history.map((workout) => {
+        return Object.entries(workout).map(([dt, v]) => {
+          console.log(dt, " VALUE: ", v);
+          <HistoryCard key={dt} date={dt} currentExercises={v} />;
+        });
+      })} */}
+
+      {rootStore.workoutStore.history.map((workout, idx) => {
+        const workoutInfoAsArr = Object.entries(workout);
+        console.log("OBJ TO ARRAY::::::: ", workoutInfoAsArr[0][1]);
+        return (
+          <HistoryCard
+            key={workoutInfoAsArr[0][0] + idx}
+            date={workoutInfoAsArr[0][0]}
+            currentExercises={workoutInfoAsArr[0][1]}
+          />
+        );
+      })}
     </View>
   );
 });
@@ -63,7 +103,7 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#121212",
     alignItems: "center",
     justifyContent: "center",
   },

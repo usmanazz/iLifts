@@ -3,6 +3,22 @@ import { persist } from "mobx-persist";
 
 const workoutDay = [0, 1];
 
+// Workout History example
+// means, on a given day, someone did an array of exercises
+
+// {
+//   '2019-02-18': [
+//     {
+//       exercise: 'squat',
+//       value: 90
+//     },
+//     {
+//       exercise: 'bench',
+//       value: 135
+//     },
+//   ],
+// }
+
 export class WorkoutStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -18,7 +34,7 @@ export class WorkoutStore {
 
   @persist @observable lastWorkoutDay = workoutDay[0];
 
-  @persist @observable currentExercises = [];
+  @persist("list") @observable currentExercises = [];
 
-  @persist @observable history = {};
+  @persist("list") @observable history = [];
 }

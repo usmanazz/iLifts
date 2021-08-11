@@ -1,8 +1,9 @@
 import { createContext } from "react";
 import { WorkoutStore } from "./WorkoutStore";
 import { WorkoutTimerStore } from "./WorkoutTimerStore";
-import AsyncStorage from "@react-native-community/async-storage";
 import { create } from "mobx-persist";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { makeObservable } from "mobx";
 
 const hydrate = create({
   storage: AsyncStorage,
@@ -14,8 +15,10 @@ export class RootStore {
   workoutTimerStore = new WorkoutTimerStore(this);
 
   constructor() {
-    hydrate("workoutTimer", this.workoutTimerStore);
-    hydrate("workout", this.workoutTimerStore);
+    hydrate("workoutTimer", this.workoutTimerStore).then(() => {
+      if (this.workoutTimerStore.isRunning) this.workoutTimerStore.measure();
+    });
+    hydrate("workout", this.workoutStore);
   }
 }
 

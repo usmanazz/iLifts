@@ -12,7 +12,7 @@ export class WorkoutTimerStore {
     makeObservable(this);
   }
 
-  @persist @observable startTime = dayjs();
+  @persist("object") @observable startTime = dayjs();
   @persist @observable isRunning = false;
   @persist @observable seconds = 0;
 
