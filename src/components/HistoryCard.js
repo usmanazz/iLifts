@@ -2,11 +2,13 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export const HistoryCard = ({ date, currentExercises, onPress }) => {
+  const dateWithoutTime = date.split("T");
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <View style={styles.heading}>
         <Text style={styles.grayText}>Workout</Text>
-        <Text style={styles.grayText}>{date}</Text>
+        <Text style={styles.grayText}>{dateWithoutTime[0]}</Text>
       </View>
 
       <View style={styles.exerciseContainer}>

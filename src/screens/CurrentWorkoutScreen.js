@@ -79,9 +79,9 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
         handleSave={() => {
           // dont need to clear exercises if doing day in history
           if (isCurrentWorkout) {
-            // using push to allow saving multiple workouts on the same day
+            // using push to allow saving multiple workouts of the same day
             const savedWorkout = {};
-            savedWorkout[dayjs().format("YYYY-DD-MM")] =
+            savedWorkout[dayjs().format("YYYY-MM-DDTHH:mm:ss")] =
               rootStore.workoutStore.currentExercises;
             rootStore.workoutStore.history.push(savedWorkout);
 
