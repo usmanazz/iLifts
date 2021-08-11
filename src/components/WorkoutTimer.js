@@ -32,7 +32,7 @@ export const WorkoutTimer = ({
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: 40,
+    bottom: 95,
     backgroundColor: "#2c2c2e",
     height: 60,
     width: "90%",

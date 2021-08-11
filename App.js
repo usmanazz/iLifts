@@ -21,11 +21,31 @@ const App = observer(() => {
       <Stack.Navigator
         initialRouteName="WorkoutHistory"
         screenOptions={{
-          headerShown: false,
+          headerShown: true,
+          headerStyle: { backgroundColor: "#121212" },
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: "bold",
+            color: "#fff",
+          },
+          headerTintColor: "#30d158",
         }}
       >
-        <Stack.Screen name="CurrentWorkout" component={CurrentWorkoutScreen} />
-        <Stack.Screen name="WorkoutHistory" component={WorkoutHistoryScreen} />
+        <Stack.Screen
+          name="CurrentWorkout"
+          component={CurrentWorkoutScreen}
+          options={{
+            title: "Current Workout",
+          }}
+          initialParams={{ date: "" }}
+        />
+        <Stack.Screen
+          name="WorkoutHistory"
+          component={WorkoutHistoryScreen}
+          options={{
+            title: "Workout History",
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

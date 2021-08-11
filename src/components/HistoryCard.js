@@ -1,9 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export const HistoryCard = ({ date, currentExercises }) => {
+export const HistoryCard = ({ date, currentExercises, onPress }) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity onPress={onPress} style={styles.card}>
       <View style={styles.heading}>
         <Text style={styles.grayText}>Workout</Text>
         <Text style={styles.grayText}>{date}</Text>
@@ -29,7 +29,7 @@ export const HistoryCard = ({ date, currentExercises }) => {
           );
         })}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "85%",
     marginBottom: 20,
-    padding: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
   },
 
   divider: {

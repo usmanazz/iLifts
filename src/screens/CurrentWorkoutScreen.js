@@ -1,13 +1,23 @@
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { SaveButton } from "../components/SaveButton";
 import { WorkoutCard } from "../components/WorkoutCard";
 import { WorkoutTimer } from "../components/WorkoutTimer";
 import { RootStoreContext } from "../stores/RootStore";
 
-export const CurrentWorkoutScreen = observer(({ navigation }) => {
+export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
   const rootStore = useContext(RootStoreContext);
+  const { date } = route.params;
+  const isCurrentWorkout = date === "";
 
   useEffect(() => {
     return () => rootStore.workoutTimerStore.endTimer();
@@ -15,63 +25,70 @@ export const CurrentWorkoutScreen = observer(({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Current Workout Screen</Text>
-      <Button
-        title="go to workout history"
-        onPress={() => navigation.navigate("WorkoutHistory")}
-      />
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        style={styles.scrollContainer}
+        contentContainerStyle={{ alignItems: "center" }}
+      >
+        {(isCurrentWorkout
+          ? rootStore.workoutStore.currentExercises
+          : rootStore.workoutStore.history.find(
+              (workout) => Object.keys(workout)[0] === date
+            )[date]
+        ).map((e) => {
+          return (
+            <WorkoutCard
+              onSetPress={(setIndex) => {
+                rootStore.workoutTimerStore.startTimer();
+                const set = e.sets[setIndex];
 
-      {rootStore.workoutStore.currentExercises.map((e) => {
-        return (
-          <WorkoutCard
-            onSetPress={(setIndex) => {
-              rootStore.workoutTimerStore.startTimer();
-              const set = e.sets[setIndex];
+                let newValue;
 
-              let newValue;
-
-              // reps on current set is === reps so need to see if circle is
-              // displaying active or inactive number and increment accordingly
-              if (set.reps === `${e.reps}`) {
-                if (set.state === "inactive") {
-                  newValue = { ...set, state: "active" };
+                // reps on current set is === reps so need to see if circle is
+                // displaying active or inactive number and increment accordingly
+                if (set.reps === `${e.reps}`) {
+                  if (set.state === "inactive") {
+                    newValue = { ...set, state: "active" };
+                  } else {
+                    newValue = {
+                      reps: `${parseInt(set.reps) - 1}`,
+                      state: "active",
+                    };
+                  }
+                } else if (set.reps === "0") {
+                  rootStore.workoutTimerStore.endTimer();
+                  newValue = { reps: `${e.reps}`, state: "inactive" };
                 } else {
                   newValue = {
                     reps: `${parseInt(set.reps) - 1}`,
                     state: "active",
                   };
                 }
-              } else if (set.reps === "0") {
-                rootStore.workoutTimerStore.endTimer();
-                newValue = { reps: `${e.reps}`, state: "inactive" };
-              } else {
-                newValue = {
-                  reps: `${parseInt(set.reps) - 1}`,
-                  state: "active",
-                };
-              }
-              e.sets[setIndex] = newValue;
-            }}
-            key={e.exercise}
-            exercise={e.exercise}
-            sets={e.sets}
-            repsAndWeight={`${e.numSets}x${e.reps} ${e.weight}`}
-          />
-        );
-      })}
+                e.sets[setIndex] = newValue;
+              }}
+              key={e.exercise}
+              exercise={e.exercise}
+              sets={e.sets}
+              repsAndWeight={`${e.numSets}x${e.reps} ${e.weight}`}
+            />
+          );
+        })}
+      </ScrollView>
 
-      <Button
-        title="Save"
-        onPress={() => {
-          // using push to allow saving multiple workouts on the same day
-          const savedWorkout = {};
-          savedWorkout[dayjs().format("YYYY-DD-MM")] =
-            rootStore.workoutStore.currentExercises;
-          rootStore.workoutStore.history.push(savedWorkout);
+      <SaveButton
+        handleSave={() => {
+          // dont need to clear exercises if doing day in history
+          if (isCurrentWorkout) {
+            // using push to allow saving multiple workouts on the same day
+            const savedWorkout = {};
+            savedWorkout[dayjs().format("YYYY-DD-MM")] =
+              rootStore.workoutStore.currentExercises;
+            rootStore.workoutStore.history.push(savedWorkout);
 
-          // rootStore.workoutStore.history[dayjs().format("YYYY-DD-MM")] =
-          //   rootStore.workoutStore.currentExercises;
-          rootStore.workoutStore.currentExercises = [];
+            // rootStore.workoutStore.history[dayjs().format("YYYY-DD-MM")] =
+            //   rootStore.workoutStore.currentExercises;
+            rootStore.workoutStore.currentExercises = [];
+          }
           navigation.navigate("WorkoutHistory");
         }}
       />
@@ -92,6 +109,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#121212",
     alignItems: "center",
-    justifyContent: "center",
+    paddingBottom: 100,
+  },
+
+  scrollContainer: {
+    width: "100%",
+    paddingTop: 20,
   },
 });

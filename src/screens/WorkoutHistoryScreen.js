@@ -27,7 +27,6 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Workout History Screen</Text>
       <Button title="log data" onPress={logAsyncData} />
       <Button title="clear async storage" onPress={clearAppData} />
       <Button
@@ -87,9 +86,16 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
 
       {rootStore.workoutStore.history.map((workout, idx) => {
         const workoutInfoAsArr = Object.entries(workout);
-        console.log("OBJ TO ARRAY::::::: ", workoutInfoAsArr[0][1]);
+        {
+          /* console.log("OBJ TO ARRAY::::::: ", workoutInfoAsArr[0][1]); */
+        }
         return (
           <HistoryCard
+            onPress={() => {
+              navigation.navigate("CurrentWorkout", {
+                date: workoutInfoAsArr[0][0],
+              });
+            }}
             key={workoutInfoAsArr[0][0] + idx}
             date={workoutInfoAsArr[0][0]}
             currentExercises={workoutInfoAsArr[0][1]}
@@ -105,6 +111,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#121212",
     alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center",
   },
 });
