@@ -26,8 +26,10 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
 
   const clearAppData = async function () {
     try {
-      const keys = await AsyncStorage.getAllKeys();
-      await AsyncStorage.multiRemove(keys);
+      // const keys = await AsyncStorage.getAllKeys();
+      // await AsyncStorage.multiRemove(keys);
+      rootStore.workoutStore.history = [];
+      console.log(await AsyncStorage.getItem("workout"));
     } catch (error) {
       console.error("Error clearing app data.");
     }
@@ -45,6 +47,8 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
             rootStore.workoutStore.history.length === 0 ? "center" : null,
         }}
       >
+        <Button title="log data" onPress={logAsyncData} />
+
         {rootStore.workoutStore.history.length > 0 ? (
           <TouchableOpacity
             style={styles.buttonContainer}

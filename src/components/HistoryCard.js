@@ -1,14 +1,25 @@
+import dayjs from "dayjs";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export const HistoryCard = ({ date, currentExercises, onPress }) => {
   const dateWithoutTime = date.split("T");
+  const dateWithMonthName = dayjs(dateWithoutTime[0]).format("MMM DD");
+
+  // console.log(dayjs().format("YYYY-MM-DD"));
+  // console.log(dateWithoutTime);
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <View style={styles.heading}>
         <Text style={styles.grayText}>Workout</Text>
-        <Text style={styles.grayText}>{dateWithoutTime[0]}</Text>
+        <Text style={styles.grayText}>
+          {" "}
+          {dateWithoutTime[0] === dayjs().format("YYYY-MM-DD")
+            ? "Today, "
+            : null}{" "}
+          {dateWithMonthName}
+        </Text>
       </View>
 
       <View style={styles.exerciseContainer}>

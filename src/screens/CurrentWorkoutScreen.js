@@ -30,6 +30,17 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
         style={styles.scrollContainer}
         contentContainerStyle={{ alignItems: "center" }}
       >
+        {date !== "" ? (
+          <Button
+            title="edit"
+            onPress={() =>
+              navigation.navigate("EditWorkout", {
+                date: date,
+              })
+            }
+          />
+        ) : null}
+
         {(isCurrentWorkout
           ? rootStore.workoutStore.currentExercises
           : rootStore.workoutStore.history.find(
