@@ -35,6 +35,11 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
     }
   };
 
+  // reverse workout history to display most recent workouts on top
+  const workoutHistoryOrderedByMostRecent = rootStore.workoutStore.history
+    .slice()
+    .reverse();
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -69,7 +74,7 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
         });
       })} */}
 
-        {rootStore.workoutStore.history.map((workout, idx) => {
+        {workoutHistoryOrderedByMostRecent.map((workout, idx) => {
           const workoutInfoAsArr = Object.entries(workout);
           {
             /* console.log("OBJ TO ARRAY::::::: ", workoutInfoAsArr[0][1]); */
