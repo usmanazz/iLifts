@@ -8,6 +8,7 @@ import { WorkoutHistoryScreen } from "./src/screens/WorkoutHistoryScreen";
 import { CurrentWorkoutScreen } from "./src/screens/CurrentWorkoutScreen";
 import { CounterStoreContext } from "./src/stores/CounterStore";
 import { EditWorkoutScreen } from "./src/screens/EditWorkoutScreen";
+import dayjs from "dayjs";
 
 configure({
   enforceActions: "never",
@@ -36,9 +37,15 @@ const App = observer(() => {
         <Stack.Screen
           name="CurrentWorkout"
           component={CurrentWorkoutScreen}
-          options={{
-            title: "Current Workout",
-          }}
+          options={({ route }) =>
+            route.params.date !== ""
+              ? {
+                  title: dayjs(route.params.date.split("T")[0]).format(
+                    "MMM DD, YYYY"
+                  ),
+                }
+              : { title: "Current Workout" }
+          }
           initialParams={{ date: "" }}
         />
         <Stack.Screen

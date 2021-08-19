@@ -1,9 +1,10 @@
 import dayjs from "dayjs";
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { generateCompletedExerciseString } from "../util/HistoryCardFunctions";
 
-export const HistoryCard = ({ date, currentExercises, onPress }) => {
+export const HistoryCard = observer(({ date, currentExercises, onPress }) => {
   const dateWithoutTime = date.split("T");
   const dateWithMonthName = dayjs(dateWithoutTime[0]).format("MMM DD");
 
@@ -50,7 +51,7 @@ export const HistoryCard = ({ date, currentExercises, onPress }) => {
       </View>
     </TouchableOpacity>
   );
-};
+});
 
 const styles = StyleSheet.create({
   card: {
