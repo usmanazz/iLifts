@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StatusBar, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StatusBar } from "expo-status-bar";
 import { configure } from "mobx";
 import { observer } from "mobx-react-lite";
 import { WorkoutHistoryScreen } from "./src/screens/WorkoutHistoryScreen";
@@ -19,6 +18,8 @@ const Stack = createNativeStackNavigator();
 const App = observer(() => {
   return (
     <NavigationContainer>
+      <StatusBar barStyle="light-content" />
+
       <Stack.Navigator
         initialRouteName="WorkoutHistory"
         screenOptions={{
