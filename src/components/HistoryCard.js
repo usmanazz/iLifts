@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { generateCompletedExerciseString } from "../util/HistoryCardFunctions";
 
 export const HistoryCard = ({ date, currentExercises, onPress }) => {
   const dateWithoutTime = date.split("T");
@@ -24,6 +25,11 @@ export const HistoryCard = ({ date, currentExercises, onPress }) => {
 
       <View style={styles.exerciseContainer}>
         {currentExercises.map((ce, idx) => {
+          const setsAndReps = generateCompletedExerciseString(
+            ce.numSets,
+            ce.sets
+          );
+
           return (
             <View
               key={ce.exercise}
@@ -37,7 +43,7 @@ export const HistoryCard = ({ date, currentExercises, onPress }) => {
               </Text>
               <Text
                 style={[styles.whiteText, styles.lineHeight]}
-              >{`${ce.numSets}x${ce.reps} ${ce.weight}lb`}</Text>
+              >{`${setsAndReps} ${ce.weight}lb`}</Text>
             </View>
           );
         })}
