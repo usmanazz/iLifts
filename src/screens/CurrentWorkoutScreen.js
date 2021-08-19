@@ -80,7 +80,7 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
               key={e.exercise}
               exercise={e.exercise}
               sets={e.sets}
-              repsAndWeight={`${e.numSets}x${e.reps} ${e.weight}`}
+              repsAndWeight={`${e.numSets}x${e.reps} ${e.weight}lb`}
             />
           );
         })}
