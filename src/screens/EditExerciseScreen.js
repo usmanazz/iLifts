@@ -27,6 +27,9 @@ export const EditExerciseScreen = observer(({ route, navigation }) => {
           .find((workout) => Object.keys(workout)[0] === date)
           [date].find((e) => e.exercise === exercise);
   const [weight, onChangeWeight] = useState(`${exerciseToEdit.weight}`);
+  const [numberOfSets, onChangeNumberOfSets] = useState(
+    `${exerciseToEdit.numSets}`
+  );
 
   // edit weight for each exercise
   useEffect(() => {
@@ -52,30 +55,97 @@ export const EditExerciseScreen = observer(({ route, navigation }) => {
         .find((workout) => Object.keys(workout)[0] === date)
         [date].map((e) => {
           if (e.exercise === exercise) {
-            e.weight = weight;
+            e.weight = parseInt(weight);
           }
         });
     }
   }, [weight]);
 
+  // edit number of sets for an exercise
+  useEffect(() => {
+    if (numberOfSets > 0 && numberOfSets <= 5) {
+      if (date === "") {
+        for (const i in rootStore.workoutStore.currentExercises) {
+          if (
+            rootStore.workoutStore.currentExercises[i].exercise === exercise
+          ) {
+            rootStore.workoutStore.currentExercises[i].numSets =
+              parseInt(numberOfSets);
+
+            // display correct number of sets (max: 5, min: 1)
+            rootStore.workoutStore.currentExercises[i].sets = [];
+            for (let j = 0; j < numberOfSets; j++) {
+              rootStore.workoutStore.currentExercises[i].sets.push({
+                reps: "5",
+                state: "inactive",
+              });
+            }
+            for (let k = 0; k < 5 - numberOfSets; k++) {
+              rootStore.workoutStore.currentExercises[i].sets.push({
+                reps: "X",
+                state: "inactive",
+              });
+            }
+          }
+        }
+      } else {
+        rootStore.workoutStore.history
+          .find((workout) => Object.keys(workout)[0] === date)
+          [date].map((e) => {
+            if (e.exercise === exercise) {
+              e.numSets = parseInt(numberOfSets);
+
+              e.sets = [];
+              for (let j = 0; j < numberOfSets; j++) {
+                e.sets.push({
+                  reps: "5",
+                  state: "inactive",
+                });
+              }
+              for (let k = 0; k < 5 - numberOfSets; k++) {
+                e.sets.push({
+                  reps: "X",
+                  state: "inactive",
+                });
+              }
+            }
+          });
+      }
+    }
+  }, [numberOfSets]);
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <View style={styles.exerciseWeight}>
-          <Text style={styles.whiteText}>Exercise Weight</Text>
+        <View style={[styles.exerciseWeight, styles.divider]}>
+          <Text style={[styles.whiteText, styles.lineHeight]}>
+            Exercise Weight
+          </Text>
 
           <View style={styles.inputWeightContainer}>
             <TextInput
-              style={styles.whiteText}
+              style={[styles.whiteText, styles.lineHeight]}
               selectionColor={"#fff"}
               onChangeText={onChangeWeight}
               value={weight}
               keyboardType="numeric"
             />
-            <Text style={styles.whiteText}>lb</Text>
+            <Text style={[styles.whiteText, styles.lineHeight]}>lb</Text>
           </View>
         </View>
-        <View style={styles.exerciseSets}></View>
+
+        <View style={styles.exerciseSets}>
+          <Text style={[styles.whiteText, styles.lineHeight]}>
+            Number of Sets
+          </Text>
+          <TextInput
+            style={[styles.whiteText, styles.lineHeight]}
+            selectionColor={"#fff"}
+            onChangeText={onChangeNumberOfSets}
+            value={numberOfSets}
+            keyboardType="numeric"
+          />
+        </View>
       </View>
 
       <View style={styles.card}>
@@ -103,6 +173,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
 
+  divider: {
+    borderBottomColor: "#3a3a3c",
+    borderBottomWidth: 1,
+  },
+
+  exerciseSets: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
   exerciseWeight: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -111,6 +191,10 @@ const styles = StyleSheet.create({
   inputWeightContainer: {
     flexDirection: "row",
     alignItems: "center",
+  },
+
+  lineHeight: {
+    paddingVertical: 10,
   },
 
   resetExerciseText: {
