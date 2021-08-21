@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -62,54 +62,60 @@ export const EditExerciseScreen = observer(({ route, navigation }) => {
   }, [weight]);
 
   // edit number of sets for an exercise
+  const firstUpdate = useRef(true); // prevent useEffect from running on intial mount
   useEffect(() => {
-    if (numberOfSets > 0 && numberOfSets <= 5) {
-      if (date === "") {
-        for (const i in rootStore.workoutStore.currentExercises) {
-          if (
-            rootStore.workoutStore.currentExercises[i].exercise === exercise
-          ) {
-            rootStore.workoutStore.currentExercises[i].numSets =
-              parseInt(numberOfSets);
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    } else {
+      if (numberOfSets > 0 && numberOfSets <= 5) {
+        if (date === "") {
+          for (const i in rootStore.workoutStore.currentExercises) {
+            if (
+              rootStore.workoutStore.currentExercises[i].exercise === exercise
+            ) {
+              rootStore.workoutStore.currentExercises[i].numSets =
+                parseInt(numberOfSets);
 
-            // display correct number of sets (max: 5, min: 1)
-            rootStore.workoutStore.currentExercises[i].sets = [];
-            for (let j = 0; j < numberOfSets; j++) {
-              rootStore.workoutStore.currentExercises[i].sets.push({
-                reps: "5",
-                state: "inactive",
-              });
-            }
-            for (let k = 0; k < 5 - numberOfSets; k++) {
-              rootStore.workoutStore.currentExercises[i].sets.push({
-                reps: "X",
-                state: "inactive",
-              });
-            }
-          }
-        }
-      } else {
-        rootStore.workoutStore.history
-          .find((workout) => Object.keys(workout)[0] === date)
-          [date].map((e) => {
-            if (e.exercise === exercise) {
-              e.numSets = parseInt(numberOfSets);
-
-              e.sets = [];
+              // display correct number of sets (max: 5, min: 1)
+              rootStore.workoutStore.currentExercises[i].sets = [];
               for (let j = 0; j < numberOfSets; j++) {
-                e.sets.push({
+                rootStore.workoutStore.currentExercises[i].sets.push({
                   reps: "5",
                   state: "inactive",
                 });
               }
               for (let k = 0; k < 5 - numberOfSets; k++) {
-                e.sets.push({
+                rootStore.workoutStore.currentExercises[i].sets.push({
                   reps: "X",
                   state: "inactive",
                 });
               }
             }
-          });
+          }
+        } else {
+          rootStore.workoutStore.history
+            .find((workout) => Object.keys(workout)[0] === date)
+            [date].map((e) => {
+              if (e.exercise === exercise) {
+                e.numSets = parseInt(numberOfSets);
+
+                e.sets = [];
+                for (let j = 0; j < numberOfSets; j++) {
+                  e.sets.push({
+                    reps: "5",
+                    state: "inactive",
+                  });
+                }
+                for (let k = 0; k < 5 - numberOfSets; k++) {
+                  e.sets.push({
+                    reps: "X",
+                    state: "inactive",
+                  });
+                }
+              }
+            });
+        }
       }
     }
   }, [numberOfSets]);
@@ -148,9 +154,43 @@ export const EditExerciseScreen = observer(({ route, navigation }) => {
         </View>
       </View>
 
-      <View style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => {
+          if (date === "") {
+            for (const i in rootStore.workoutStore.currentExercises) {
+              if (
+                rootStore.workoutStore.currentExercises[i].exercise === exercise
+              ) {
+                rootStore.workoutTimerStore.endTimer();
+                for (
+                  let j = 0;
+                  j < rootStore.workoutStore.currentExercises[i].numSets;
+                  j++
+                ) {
+                  rootStore.workoutStore.currentExercises[i].sets[j] = {
+                    reps: "5",
+                    state: "inactive",
+                  };
+                }
+              }
+            }
+          } else {
+            rootStore.workoutStore.history
+              .find((workout) => Object.keys(workout)[0] === date)
+              [date].map((e) => {
+                if (e.exercise === exercise) {
+                  rootStore.workoutTimerStore.endTimer();
+                  for (let i = 0; i < e.numSets; i++) {
+                    e.sets[i] = { reps: "5", state: "inactive" };
+                  }
+                }
+              });
+          }
+        }}
+      >
         <Text style={styles.resetExerciseText}>Reset Exercise</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 });
