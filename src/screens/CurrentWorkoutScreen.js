@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { SaveButton } from "../components/SaveButton";
 import { WorkoutCard } from "../components/WorkoutCard";
@@ -22,6 +23,30 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
   useEffect(() => {
     return () => rootStore.workoutTimerStore.endTimer();
   }, []);
+
+  useLayoutEffect(() => {
+    if (!isCurrentWorkout) {
+      navigation.setOptions({
+        headerRight: () => (
+          <Button
+            title="Delete"
+            onPress={() => {
+              try {
+                rootStore.workoutStore.history =
+                  rootStore.workoutStore.history.filter(
+                    (workout) => Object.keys(workout)[0] !== date
+                  );
+                navigation.navigate("WorkoutHistory");
+              } catch (error) {
+                console.error(error);
+              }
+            }}
+            color="#30d158"
+          />
+        ),
+      });
+    }
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
