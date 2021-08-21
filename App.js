@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 import { WorkoutHistoryScreen } from "./src/screens/WorkoutHistoryScreen";
 import { CurrentWorkoutScreen } from "./src/screens/CurrentWorkoutScreen";
 import { CounterStoreContext } from "./src/stores/CounterStore";
-import { EditWorkoutScreen } from "./src/screens/EditWorkoutScreen";
+import { EditExerciseScreen } from "./src/screens/EditExerciseScreen";
 import dayjs from "dayjs";
 
 configure({
@@ -57,11 +57,11 @@ const App = observer(() => {
         />
 
         <Stack.Screen
-          name="EditWorkout"
-          component={EditWorkoutScreen}
-          options={{
-            title: "Edit Workout",
-          }}
+          name="EditExercise"
+          component={EditExerciseScreen}
+          options={({ route }) => ({
+            title: `Edit ${route.params.exercise}`,
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>

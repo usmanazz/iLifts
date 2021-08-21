@@ -1,14 +1,31 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 export const WorkoutCard = observer(
-  ({ exercise, repsAndWeight, sets, onSetPress }) => {
+  ({ date, exercise, repsAndWeight, sets, onSetPress, navigation }) => {
     return (
       <View style={styles.card}>
         <View style={styles.topRow}>
           <Text style={styles.topRowText}>{exercise}</Text>
-          <Text style={styles.topRowText}>{repsAndWeight}</Text>
+
+          <View style={styles.topRowRightHeader}>
+            <Text style={[styles.topRowText, styles.setsAndWeight]}>
+              {repsAndWeight}
+            </Text>
+
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("EditExercise", {
+                  date: date,
+                  exercise: exercise,
+                })
+              }
+            >
+              <AntDesign name="right" size={18} color="#30d158" />
+            </TouchableOpacity>
+          </View>
         </View>
 
         <View style={styles.bottomRow}>
@@ -93,9 +110,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
+  setsAndWeight: {
+    marginRight: 5,
+  },
+
   topRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+
+  topRowRightHeader: {
+    flexDirection: "row",
   },
 
   topRowText: {

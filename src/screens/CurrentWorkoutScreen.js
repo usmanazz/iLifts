@@ -20,6 +20,9 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
   const { date } = route.params;
   const isCurrentWorkout = date === "";
 
+  // console.log(rootStore.workoutStore.currentExercises);
+  // console.log(rootStore.workoutStore.history);
+
   useEffect(() => {
     return () => rootStore.workoutTimerStore.endTimer();
   }, []);
@@ -55,7 +58,7 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
         style={styles.scrollContainer}
         contentContainerStyle={{ alignItems: "center" }}
       >
-        {date !== "" ? (
+        {/* {!isCurrentWorkout ? (
           <Button
             title="edit"
             onPress={() =>
@@ -64,7 +67,7 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
               })
             }
           />
-        ) : null}
+        ) : null} */}
 
         {(isCurrentWorkout
           ? rootStore.workoutStore.currentExercises
@@ -72,8 +75,13 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
               (workout) => Object.keys(workout)[0] === date
             )[date]
         ).map((e) => {
+          {
+            /* console.log(e); */
+          }
           return (
             <WorkoutCard
+              navigation={navigation}
+              date={date}
               onSetPress={(setIndex) => {
                 rootStore.workoutTimerStore.startTimer();
                 const set = e.sets[setIndex];
