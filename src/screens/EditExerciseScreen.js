@@ -1,18 +1,12 @@
-import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
-  Button,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { SaveButton } from "../components/SaveButton";
-import { WorkoutCard } from "../components/WorkoutCard";
-import { WorkoutTimer } from "../components/WorkoutTimer";
 import { RootStoreContext } from "../stores/RootStore";
 
 export const EditExerciseScreen = observer(({ route, navigation }) => {

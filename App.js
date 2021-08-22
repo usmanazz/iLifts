@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import { Button, StatusBar, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StatusBar, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { configure } from "mobx";
 import { observer } from "mobx-react-lite";
 import { WorkoutHistoryScreen } from "./src/screens/WorkoutHistoryScreen";
 import { CurrentWorkoutScreen } from "./src/screens/CurrentWorkoutScreen";
-import { CounterStoreContext } from "./src/stores/CounterStore";
 import { EditExerciseScreen } from "./src/screens/EditExerciseScreen";
 import dayjs from "dayjs";
 

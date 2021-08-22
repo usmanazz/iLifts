@@ -1,15 +1,7 @@
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useLayoutEffect } from "react";
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { View, Button, StyleSheet, ScrollView } from "react-native";
 import { SaveButton } from "../components/SaveButton";
 import { WorkoutCard } from "../components/WorkoutCard";
 import { WorkoutTimer } from "../components/WorkoutTimer";
@@ -19,9 +11,6 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
   const rootStore = useContext(RootStoreContext);
   const { date } = route.params;
   const isCurrentWorkout = date === "";
-
-  // console.log(rootStore.workoutStore.currentExercises);
-  // console.log(rootStore.workoutStore.history);
 
   useEffect(() => {
     return () => rootStore.workoutTimerStore.endTimer();
@@ -58,26 +47,12 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
         style={styles.scrollContainer}
         contentContainerStyle={{ alignItems: "center" }}
       >
-        {/* {!isCurrentWorkout ? (
-          <Button
-            title="edit"
-            onPress={() =>
-              navigation.navigate("EditWorkout", {
-                date: date,
-              })
-            }
-          />
-        ) : null} */}
-
         {(isCurrentWorkout
           ? rootStore.workoutStore.currentExercises
           : rootStore.workoutStore.history.find(
               (workout) => Object.keys(workout)[0] === date
             )[date]
         ).map((e) => {
-          {
-            /* console.log(e); */
-          }
           return (
             <WorkoutCard
               navigation={navigation}
@@ -129,8 +104,6 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
               rootStore.workoutStore.currentExercises;
             rootStore.workoutStore.history.push(savedWorkout);
 
-            // rootStore.workoutStore.history[dayjs().format("YYYY-DD-MM")] =
-            //   rootStore.workoutStore.currentExercises;
             rootStore.workoutStore.currentExercises = [];
           }
           navigation.navigate("WorkoutHistory");

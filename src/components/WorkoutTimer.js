@@ -1,18 +1,11 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  Touchable,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 
 export const WorkoutTimer = ({
   currentTime,
   onDeletePress,
   percentProgressLine,
 }) => {
-  //   console.log(percentProgressLine);
   return (
     <View style={styles.container}>
       <View style={[styles.progressLine, { width: percentProgressLine }]} />

@@ -3,7 +3,6 @@ import { WorkoutStore } from "./WorkoutStore";
 import { WorkoutTimerStore } from "./WorkoutTimerStore";
 import { create } from "mobx-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { makeObservable } from "mobx";
 
 const hydrate = create({
   storage: AsyncStorage,

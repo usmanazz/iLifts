@@ -8,9 +8,6 @@ export const HistoryCard = observer(({ date, currentExercises, onPress }) => {
   const dateWithoutTime = date.split("T");
   const dateWithMonthName = dayjs(dateWithoutTime[0]).format("MMM DD");
 
-  // console.log(dayjs().format("YYYY-MM-DD"));
-  // console.log(dateWithoutTime);
-
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <View style={styles.heading}>

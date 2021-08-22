@@ -1,39 +1,12 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { FloatActionButton } from "../components/FloatActionButton";
 import { HistoryCard } from "../components/HistoryCard";
 import { RootStoreContext } from "../stores/RootStore";
 
 export const WorkoutHistoryScreen = observer(({ navigation }) => {
   const rootStore = useContext(RootStoreContext);
-
-  const logAsyncData = async () => {
-    try {
-      console.log(await AsyncStorage.getItem("workout"));
-    } catch (err) {
-      console.error("error logging data");
-    }
-  };
-
-  const clearAppData = async function () {
-    try {
-      // const keys = await AsyncStorage.getAllKeys();
-      // await AsyncStorage.multiRemove(keys);
-      rootStore.workoutStore.history = [];
-      console.log(await AsyncStorage.getItem("workout"));
-    } catch (error) {
-      console.error("Error clearing app data.");
-    }
-  };
 
   // reverse workout history to display most recent workouts on top
   const workoutHistoryOrderedByMostRecent = rootStore.workoutStore.history
@@ -52,33 +25,14 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
             rootStore.workoutStore.history.length === 0 ? "center" : null,
         }}
       >
-        <Button title="log data" onPress={logAsyncData} />
-
-        {rootStore.workoutStore.history.length > 0 ? (
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={clearAppData}
-          >
-            <Text style={styles.buttonText}>Delete All</Text>
-          </TouchableOpacity>
-        ) : (
+        {rootStore.workoutStore.history.length === 0 ? (
           <Text style={styles.message}>
             No saved workouts. Complete workouts to add here!
           </Text>
-        )}
-
-        {/* {rootStore.workoutStore.history.map((workout) => {
-        return Object.entries(workout).map(([dt, v]) => {
-          console.log(dt, " VALUE: ", v);
-          <HistoryCard key={dt} date={dt} currentExercises={v} />;
-        });
-      })} */}
+        ) : null}
 
         {workoutHistoryOrderedByMostRecent.map((workout, idx) => {
           const workoutInfoAsArr = Object.entries(workout);
-          {
-            /* console.log("OBJ TO ARRAY::::::: ", workoutInfoAsArr[0][1]); */
-          }
           return (
             <HistoryCard
               onPress={() => {
@@ -219,5 +173,6 @@ const styles = StyleSheet.create({
 
   scrollContainer: {
     width: "100%",
+    paddingTop: 20,
   },
 });

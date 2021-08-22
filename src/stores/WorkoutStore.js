@@ -5,7 +5,6 @@ const workoutDay = [0, 1];
 
 // Workout History example
 // means, on a given day, someone did an array of exercises
-
 // {
 //   '2019-02-18': [
 //     {
