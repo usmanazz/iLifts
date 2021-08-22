@@ -6,7 +6,7 @@ import { generateCompletedExerciseString } from "../util/HistoryCardFunctions";
 
 export const HistoryCard = observer(({ date, currentExercises, onPress }) => {
   const dateWithoutTime = date.split("T");
-  const dateWithMonthName = dayjs(dateWithoutTime[0]).format("MMM DD");
+  const dateWithMonthName = dayjs(dateWithoutTime[0]).format("MMM DD YYYY");
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
@@ -15,7 +15,7 @@ export const HistoryCard = observer(({ date, currentExercises, onPress }) => {
         <Text style={styles.grayText}>
           {" "}
           {dateWithoutTime[0] === dayjs().format("YYYY-MM-DD")
-            ? "Today, "
+            ? "Today,"
             : null}{" "}
           {dateWithMonthName}
         </Text>
