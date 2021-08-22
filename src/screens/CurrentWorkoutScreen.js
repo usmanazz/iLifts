@@ -55,8 +55,12 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
         ).map((e) => {
           return (
             <WorkoutCard
+              key={e.exercise}
               navigation={navigation}
               date={date}
+              exercise={e.exercise}
+              sets={e.sets}
+              repsAndWeight={`${e.numSets}x${e.reps} ${e.weight}lb`}
               onSetPress={(setIndex) => {
                 rootStore.workoutTimerStore.startTimer();
                 const set = e.sets[setIndex];
@@ -85,10 +89,6 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
                 }
                 e.sets[setIndex] = newValue;
               }}
-              key={e.exercise}
-              exercise={e.exercise}
-              sets={e.sets}
-              repsAndWeight={`${e.numSets}x${e.reps} ${e.weight}lb`}
             />
           );
         })}
@@ -96,14 +96,13 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
 
       <SaveButton
         handleSave={() => {
-          // dont need to clear exercises if doing day in history
+          // dont need to clear exercises if a history workout
           if (isCurrentWorkout) {
-            // using push to allow saving multiple workouts of the same day
+            // use array push to allow saving multiple workouts of the same day
             const savedWorkout = {};
             savedWorkout[dayjs().format("YYYY-MM-DDTHH:mm:ss")] =
               rootStore.workoutStore.currentExercises;
             rootStore.workoutStore.history.push(savedWorkout);
-
             rootStore.workoutStore.currentExercises = [];
           }
           navigation.navigate("WorkoutHistory");

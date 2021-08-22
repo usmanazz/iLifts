@@ -13,6 +13,95 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
     .slice()
     .reverse();
 
+  const createNewWorkout = () => {
+    if (!rootStore.workoutStore.hasCurrentWorkout) {
+      const {
+        currentBarbellRow,
+        currentBenchPress,
+        currentDeadlift,
+        currentOverheadPress,
+        currentSquat,
+      } = rootStore.workoutStore;
+      const emptySets = [
+        { reps: "5", state: "inactive" },
+        { reps: "5", state: "inactive" },
+        { reps: "5", state: "inactive" },
+        { reps: "5", state: "inactive" },
+        { reps: "5", state: "inactive" },
+      ];
+
+      if (rootStore.workoutStore.lastWorkoutDay === 1) {
+        rootStore.workoutStore.currentExercises.push(
+          {
+            exercise: "Squat",
+            numSets: 5,
+            reps: 5,
+            sets: [...emptySets],
+            weight: currentSquat,
+          },
+          {
+            exercise: "Bench Press",
+            numSets: 5,
+            reps: 5,
+            sets: [...emptySets],
+            weight: currentBenchPress,
+          },
+          {
+            exercise: "Deadlift",
+            numSets: 3,
+            reps: 5,
+            sets: [
+              { reps: "5", state: "inactive" },
+              { reps: "5", state: "inactive" },
+              { reps: "5", state: "inactive" },
+              { reps: "X", state: "inactive" },
+              { reps: "X", state: "inactive" },
+            ],
+            weight: currentDeadlift,
+          }
+        );
+
+        rootStore.workoutStore.currentSquat += 5;
+        rootStore.workoutStore.currentBenchPress += 5;
+        rootStore.workoutStore.currentDeadlift += 5;
+      } else {
+        rootStore.workoutStore.currentExercises.push(
+          {
+            exercise: "Squat",
+            numSets: 5,
+            reps: 5,
+            sets: [...emptySets],
+            weight: currentSquat,
+          },
+          {
+            exercise: "Overhead Press",
+            numSets: 5,
+            reps: 5,
+            sets: [...emptySets],
+            weight: currentOverheadPress,
+          },
+          {
+            exercise: "Barbell Row",
+            numSets: 5,
+            reps: 5,
+            sets: [...emptySets],
+            weight: currentBarbellRow,
+          }
+        );
+
+        rootStore.workoutStore.currentSquat += 5;
+        rootStore.workoutStore.currentOverheadPress += 5;
+        rootStore.workoutStore.currentBarbellRow += 5;
+      }
+
+      // change workout day
+      rootStore.workoutStore.lastWorkoutDay =
+        rootStore.workoutStore.lastWorkoutDay === 0 ? 1 : 0;
+    }
+
+    navigation.navigate("CurrentWorkout");
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -35,109 +124,20 @@ export const WorkoutHistoryScreen = observer(({ navigation }) => {
           const workoutInfoAsArr = Object.entries(workout);
           return (
             <HistoryCard
+              key={workoutInfoAsArr[0][0] + idx}
+              date={workoutInfoAsArr[0][0]}
+              currentExercises={workoutInfoAsArr[0][1]}
               onPress={() => {
                 navigation.navigate("CurrentWorkout", {
                   date: workoutInfoAsArr[0][0],
                 });
               }}
-              key={workoutInfoAsArr[0][0] + idx}
-              date={workoutInfoAsArr[0][0]}
-              currentExercises={workoutInfoAsArr[0][1]}
             />
           );
         })}
       </ScrollView>
 
-      <FloatActionButton
-        onPress={() => {
-          if (!rootStore.workoutStore.hasCurrentWorkout) {
-            const {
-              currentBarbellRow,
-              currentBenchPress,
-              currentDeadlift,
-              currentOverheadPress,
-              currentSquat,
-            } = rootStore.workoutStore;
-            const emptySets = [
-              { reps: "5", state: "inactive" },
-              { reps: "5", state: "inactive" },
-              { reps: "5", state: "inactive" },
-              { reps: "5", state: "inactive" },
-              { reps: "5", state: "inactive" },
-            ];
-
-            if (rootStore.workoutStore.lastWorkoutDay === 1) {
-              rootStore.workoutStore.currentExercises.push(
-                {
-                  exercise: "Squat",
-                  numSets: 5,
-                  reps: 5,
-                  sets: [...emptySets],
-                  weight: currentSquat,
-                },
-                {
-                  exercise: "Bench Press",
-                  numSets: 5,
-                  reps: 5,
-                  sets: [...emptySets],
-                  weight: currentBenchPress,
-                },
-                {
-                  exercise: "Deadlift",
-                  numSets: 3,
-                  reps: 5,
-                  sets: [
-                    { reps: "5", state: "inactive" },
-                    { reps: "5", state: "inactive" },
-                    { reps: "5", state: "inactive" },
-                    { reps: "X", state: "inactive" },
-                    { reps: "X", state: "inactive" },
-                  ],
-                  weight: currentDeadlift,
-                }
-              );
-
-              rootStore.workoutStore.currentSquat += 5;
-              rootStore.workoutStore.currentBenchPress += 5;
-              rootStore.workoutStore.currentDeadlift += 5;
-            } else {
-              rootStore.workoutStore.currentExercises.push(
-                {
-                  exercise: "Squat",
-                  numSets: 5,
-                  reps: 5,
-                  sets: [...emptySets],
-                  weight: currentSquat,
-                },
-                {
-                  exercise: "Overhead Press",
-                  numSets: 5,
-                  reps: 5,
-                  sets: [...emptySets],
-                  weight: currentOverheadPress,
-                },
-                {
-                  exercise: "Barbell Row",
-                  numSets: 5,
-                  reps: 5,
-                  sets: [...emptySets],
-                  weight: currentBarbellRow,
-                }
-              );
-
-              rootStore.workoutStore.currentSquat += 5;
-              rootStore.workoutStore.currentOverheadPress += 5;
-              rootStore.workoutStore.currentBarbellRow += 5;
-            }
-
-            // change workout day
-            rootStore.workoutStore.lastWorkoutDay =
-              rootStore.workoutStore.lastWorkoutDay === 0 ? 1 : 0;
-          }
-
-          navigation.navigate("CurrentWorkout");
-        }}
-      />
+      <FloatActionButton onPress={createNewWorkout} />
     </View>
   );
 });

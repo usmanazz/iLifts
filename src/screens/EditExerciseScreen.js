@@ -114,6 +114,37 @@ export const EditExerciseScreen = observer(({ route, navigation }) => {
     }
   }, [numberOfSets]);
 
+  const resetExercise = () => {
+    if (date === "") {
+      for (const i in rootStore.workoutStore.currentExercises) {
+        if (rootStore.workoutStore.currentExercises[i].exercise === exercise) {
+          rootStore.workoutTimerStore.endTimer();
+          for (
+            let j = 0;
+            j < rootStore.workoutStore.currentExercises[i].numSets;
+            j++
+          ) {
+            rootStore.workoutStore.currentExercises[i].sets[j] = {
+              reps: "5",
+              state: "inactive",
+            };
+          }
+        }
+      }
+    } else {
+      rootStore.workoutStore.history
+        .find((workout) => Object.keys(workout)[0] === date)
+        [date].map((e) => {
+          if (e.exercise === exercise) {
+            rootStore.workoutTimerStore.endTimer();
+            for (let i = 0; i < e.numSets; i++) {
+              e.sets[i] = { reps: "5", state: "inactive" };
+            }
+          }
+        });
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -148,41 +179,7 @@ export const EditExerciseScreen = observer(({ route, navigation }) => {
         </View>
       </View>
 
-      <TouchableOpacity
-        style={styles.card}
-        onPress={() => {
-          if (date === "") {
-            for (const i in rootStore.workoutStore.currentExercises) {
-              if (
-                rootStore.workoutStore.currentExercises[i].exercise === exercise
-              ) {
-                rootStore.workoutTimerStore.endTimer();
-                for (
-                  let j = 0;
-                  j < rootStore.workoutStore.currentExercises[i].numSets;
-                  j++
-                ) {
-                  rootStore.workoutStore.currentExercises[i].sets[j] = {
-                    reps: "5",
-                    state: "inactive",
-                  };
-                }
-              }
-            }
-          } else {
-            rootStore.workoutStore.history
-              .find((workout) => Object.keys(workout)[0] === date)
-              [date].map((e) => {
-                if (e.exercise === exercise) {
-                  rootStore.workoutTimerStore.endTimer();
-                  for (let i = 0; i < e.numSets; i++) {
-                    e.sets[i] = { reps: "5", state: "inactive" };
-                  }
-                }
-              });
-          }
-        }}
-      >
+      <TouchableOpacity style={styles.card} onPress={resetExercise}>
         <Text style={styles.resetExerciseText}>Reset Exercise</Text>
       </TouchableOpacity>
     </View>
