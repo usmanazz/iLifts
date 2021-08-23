@@ -40,6 +40,35 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
     }
   }, [navigation]);
 
+  const handleSetChange = (setIndex, exercise) => {
+    rootStore.workoutTimerStore.startTimer();
+    const set = exercise.sets[setIndex];
+
+    let newValue;
+
+    // reps on current set is === reps so need to see if circle is
+    // displaying active or inactive number and increment accordingly
+    if (set.reps === `${exercise.reps}`) {
+      if (set.state === "inactive") {
+        newValue = { ...set, state: "active" };
+      } else {
+        newValue = {
+          reps: `${parseInt(set.reps) - 1}`,
+          state: "active",
+        };
+      }
+    } else if (set.reps === "0") {
+      rootStore.workoutTimerStore.endTimer();
+      newValue = { reps: `${exercise.reps}`, state: "inactive" };
+    } else {
+      newValue = {
+        reps: `${parseInt(set.reps) - 1}`,
+        state: "active",
+      };
+    }
+    exercise.sets[setIndex] = newValue;
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -61,34 +90,7 @@ export const CurrentWorkoutScreen = observer(({ route, navigation }) => {
               exercise={e.exercise}
               sets={e.sets}
               repsAndWeight={`${e.numSets}x${e.reps} ${e.weight}lb`}
-              onSetPress={(setIndex) => {
-                rootStore.workoutTimerStore.startTimer();
-                const set = e.sets[setIndex];
-
-                let newValue;
-
-                // reps on current set is === reps so need to see if circle is
-                // displaying active or inactive number and increment accordingly
-                if (set.reps === `${e.reps}`) {
-                  if (set.state === "inactive") {
-                    newValue = { ...set, state: "active" };
-                  } else {
-                    newValue = {
-                      reps: `${parseInt(set.reps) - 1}`,
-                      state: "active",
-                    };
-                  }
-                } else if (set.reps === "0") {
-                  rootStore.workoutTimerStore.endTimer();
-                  newValue = { reps: `${e.reps}`, state: "inactive" };
-                } else {
-                  newValue = {
-                    reps: `${parseInt(set.reps) - 1}`,
-                    state: "active",
-                  };
-                }
-                e.sets[setIndex] = newValue;
-              }}
+              onSetPress={(setIndex) => handleSetChange(setIndex, e)}
             />
           );
         })}

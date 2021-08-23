@@ -16,6 +16,7 @@ export class WorkoutTimerStore {
   @persist @observable isRunning = false;
   @persist @observable seconds = 0;
 
+  // calculates the seconds since start time recursively
   @action measure() {
     if (!this.isRunning) return;
 

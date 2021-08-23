@@ -12,6 +12,7 @@ export const WorkoutTimer = ({
 
       <View style={styles.row}>
         <Text style={styles.timeText}>{currentTime}</Text>
+        <Text style={styles.restText}>Rest Timer</Text>
         <TouchableWithoutFeedback onPress={onDeletePress}>
           <View style={styles.deleteButtonContainer}>
             <Text style={styles.deleteButton}>X</Text>
@@ -50,6 +51,11 @@ const styles = StyleSheet.create({
   progressLine: {
     height: 3,
     backgroundColor: "#30d158",
+  },
+
+  restText: {
+    fontSize: 16,
+    color: "#7e7e7e",
   },
 
   row: {
