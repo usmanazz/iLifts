@@ -139,7 +139,7 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 #### Splash Screen
 
-<img src="./images/splash.png" width="245" height="530" />
+<img src="./images/splash.png" align="middle" width="245" height="530" />
 </br>
 
 #### Current Workout Screen
