@@ -135,37 +135,35 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 ## Usage
 
-### Create Workout
+### Screenshots
+
+#### Splash Screen
+
+![](images/splash.png)
+
+#### Current Workout Screen
+
+![](images/current_workout_screen.PNG)
 
 ![](https://media.giphy.com/media/klRbEfXkYCNYvN7awg/giphy.gif)
 
-### Results Page
+#### Workout History Screen
 
-![](images/results_page_screenshot.png)
+![](images/workout_history_screen.PNG)
 
-### Recipe Page
+![](https://media.giphy.com/media/jSbGkyh5NMNJ4Dpp6D/giphy.gif)
 
-![](images/recipe_page_screenshot.png)
+#### Edit Workout Screen
 
-### Sign up Page
+![](images/edit_workout_screen.PNG)
 
-![](images/signup_page_screenshot.png)
+![](https://media.giphy.com/media/yXmcRuRSs5pXl8VFWB/giphy.gif)
 
-### Log in Page
+#### Previous Workout Screen
 
-![](images/login_page_screenshot.png)
+![](images/previous_workout_screen.PNG)
 
-### Account Page showing User's Favorites
-
-![](images/account_page_favorites_screenshot.png)
-
-### Account Page showing Account Details tab
-
-![](images/account_page_details_screenshot.png)
-
-### About Page
-
-![](images/about_page_screenshot.png)
+![](https://media.giphy.com/media/KeiYwOJeKnDt1GVUTO/giphy.gif)
 
 <!-- ROADMAP -->
 
@@ -173,20 +171,20 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 ### Features to Add
 
-- Add animations and transitions to various React Components for a more modern smooth UI
-- Display user's name and user's email on 'Account Details' tab on acccount page
-- Persist recipe data on recipe page
-- Optimize website Accessibility
-- Optimize website SEO
+- Add feature to track body weight every workout.
+- Add notes modal to workout for users to save useful notes.
+- Allow users to create their own workout plan.
+- Give users option to cycle between more than 2 workout plans.
+- Add more than the 5 current exercises for users to track.
+- Add feature to let users customize number of sets and reps (i.e. 3x8, 4x12, 5x15).
 
 ### Fixes/Code Maintenance
 
-- Utilze React Context API to refactor and manage state rather than passing state as props
-- Update database schema to normalize database, minimizing redundancy and establishing more meaningful relationships between entities
-- Incorporate more robust fetch error handling
-- Utilize Jest and other testing libraries to automate testing
-- Update api routes to adhere standards for api naming conventions
-- Store search results in database to minmize calls to Food api (reduce overage charges)
+- Utilize something like a Flatlist to display all previous workouts to optimize performance.
+- Dim the set circle if user did not complete all the reps in a set.
+- Make rest timer message dynamic.
+- Animate Splash screen.
+- Create a list to store various workout plans rather than hard coding it.
 
 <!-- LICENSE -->
 
