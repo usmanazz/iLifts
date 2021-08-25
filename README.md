@@ -143,11 +143,12 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 #### Current Workout Screen
 
-<p float="left">
+<p float="left" style="display:flex; justify-content:space-evenly">
   <img src="./images/current_workout_screen.PNG" width="245" height="530" />
 
   <img src="https://media.giphy.com/media/klRbEfXkYCNYvN7awg/giphy.gif" width="245" height="530" />
 </p>
+</br>
 
 #### Workout History Screen
 
@@ -156,6 +157,7 @@ Need to have Node.js installed and configured on your local environment. See pac
 
   <img src="https://media.giphy.com/media/jSbGkyh5NMNJ4Dpp6D/giphy.gif" width="245" height="530" />
 </p>
+</br>
 
 #### Edit Workout Screen
 
@@ -164,6 +166,7 @@ Need to have Node.js installed and configured on your local environment. See pac
 
   <img src="https://media.giphy.com/media/yXmcRuRSs5pXl8VFWB/giphy.gif" width="245" height="530" />
 </p>
+</br>
 
 #### Previous Workout Screen
 
@@ -172,6 +175,7 @@ Need to have Node.js installed and configured on your local environment. See pac
 
   <img src="https://media.giphy.com/media/KeiYwOJeKnDt1GVUTO/giphy.gif" width="245" height="530" />
 </p>
+</br>
 
 <!-- ROADMAP -->
 
