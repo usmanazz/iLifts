@@ -144,8 +144,8 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 #### Current Workout Screen
 
-<p float="middle">
-  <img src="./images/current_workout_screen.PNG" style="margin-right:20px" width="245" height="530" />
+<p align="middle">
+  <img src="./images/current_workout_screen.PNG" style="margin-right:20px" width="245" height="530" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
   <img src="https://media.giphy.com/media/klRbEfXkYCNYvN7awg/giphy.gif" width="245" height="530" />
 </p>
@@ -153,8 +153,8 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 #### Workout History Screen
 
-<p float="middle">
-  <img src="./images/workout_history_screen.PNG" style="margin-right:20px" width="245" height="530" />
+<p align="middle">
+  <img src="./images/workout_history_screen.PNG" style="margin-right:20px" width="245" height="530" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
   <img src="https://media.giphy.com/media/jSbGkyh5NMNJ4Dpp6D/giphy.gif" width="245" height="530" />
 </p>
@@ -162,8 +162,8 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 #### Edit Workout Screen
 
-<p float="middle">
-  <img src="./images/edit_workout_screen.PNG" style="margin-right:20px" width="245" height="530" />
+<p align="middle">
+  <img src="./images/edit_workout_screen.PNG" style="margin-right:20px" width="245" height="530" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
   <img src="https://media.giphy.com/media/yXmcRuRSs5pXl8VFWB/giphy.gif" width="245" height="530" />
 </p>
@@ -171,8 +171,8 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 #### Previous Workout Screen
 
-<p float="middle">
-  <img src="./images/previous_workout_screen.PNG" style="margin-right:20px" width="245" height="530" />
+<p align="middle">
+  <img src="./images/previous_workout_screen.PNG" style="margin-right:20px" width="245" height="530" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
   <img src="https://media.giphy.com/media/KeiYwOJeKnDt1GVUTO/giphy.gif" width="245" height="530" />
 </p>
