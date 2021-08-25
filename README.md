@@ -135,9 +135,9 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 ## Usage
 
-### Home Page
+### Create Workout
 
-![](images/home_page_screenshot.png)
+![](https://media.giphy.com/media/klRbEfXkYCNYvN7awg/giphy.gif)
 
 ### Results Page
 
