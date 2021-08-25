@@ -139,31 +139,31 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 #### Splash Screen
 
-<img src="./images/splash.png" width="414" height="896" />
+<img src="./images/splash.png" width="345" height="746" />
 
 #### Current Workout Screen
 
-<img src="./images/current_workout_screen.PNG" width="414" height="896" />
+<img src="./images/current_workout_screen.PNG" width="345" height="746" />
 
-![](https://media.giphy.com/media/klRbEfXkYCNYvN7awg/giphy.gif)
+<img src="https://media.giphy.com/media/klRbEfXkYCNYvN7awg/giphy.gif" width="345" height="746" />
 
 #### Workout History Screen
 
-<img src="./images/workout_history_screen.PNG" width="414" height="896" />
+<img src="./images/workout_history_screen.PNG" width="345" height="746" />
 
-![](https://media.giphy.com/media/jSbGkyh5NMNJ4Dpp6D/giphy.gif)
+<img src="https://media.giphy.com/media/jSbGkyh5NMNJ4Dpp6D/giphy.gif" width="345" height="746" />
 
 #### Edit Workout Screen
 
-<img src="./images/edit_workout_screen.PNG" width="414" height="896" />
+<img src="./images/edit_workout_screen.PNG" width="345" height="746" />
 
-![](https://media.giphy.com/media/yXmcRuRSs5pXl8VFWB/giphy.gif)
+<img src="https://media.giphy.com/media/yXmcRuRSs5pXl8VFWB/giphy.gif" width="345" height="746" />
 
 #### Previous Workout Screen
 
-<img src="./images/previous_workout_screen.PNG" width="414" height="896" />
+<img src="./images/previous_workout_screen.PNG" width="345" height="746" />
 
-![](https://media.giphy.com/media/KeiYwOJeKnDt1GVUTO/giphy.gif)
+<img src="https://media.giphy.com/media/KeiYwOJeKnDt1GVUTO/giphy.gif" width="345" height="746" />
 
 <!-- ROADMAP -->
 
