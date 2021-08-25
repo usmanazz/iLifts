@@ -139,29 +139,29 @@ Need to have Node.js installed and configured on your local environment. See pac
 
 #### Splash Screen
 
-![](images/splash.png)
+<img src="./images/splash.png" width="414" height="896" />
 
 #### Current Workout Screen
 
-![](images/current_workout_screen.PNG)
+<img src="./images/current_workout_screen.PNG" width="414" height="896" />
 
 ![](https://media.giphy.com/media/klRbEfXkYCNYvN7awg/giphy.gif)
 
 #### Workout History Screen
 
-![](images/workout_history_screen.PNG)
+<img src="./images/workout_history_screen.PNG" width="414" height="896" />
 
 ![](https://media.giphy.com/media/jSbGkyh5NMNJ4Dpp6D/giphy.gif)
 
 #### Edit Workout Screen
 
-![](images/edit_workout_screen.PNG)
+<img src="./images/edit_workout_screen.PNG" width="414" height="896" />
 
 ![](https://media.giphy.com/media/yXmcRuRSs5pXl8VFWB/giphy.gif)
 
 #### Previous Workout Screen
 
-![](images/previous_workout_screen.PNG)
+<img src="./images/previous_workout_screen.PNG" width="414" height="896" />
 
 ![](https://media.giphy.com/media/KeiYwOJeKnDt1GVUTO/giphy.gif)
 
