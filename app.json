@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "iLifts-app",
-    "slug": "iLifts-app",
+    "name": "iLifts",
+    "slug": "ilifts",
+    "owner": "ilifts",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -26,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "A fitness app to track workouts and exercise progression!"
   }
 }
