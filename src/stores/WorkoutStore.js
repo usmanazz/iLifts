@@ -3,20 +3,15 @@ import { persist } from "mobx-persist";
 
 const workoutDay = [0, 1];
 
-// Workout History example
-// means, on a given day, someone did an array of exercises
-// {
-//   '2019-02-18': [
-//     {
-//       exercise: 'squat',
-//       value: 90
-//     },
-//     {
-//       exercise: 'bench',
-//       value: 135
-//     },
-//   ],
-// }
+// Workout History Data Type
+//
+// Array[
+//   Workouts:Object{
+//     WorkoutDate: Exercises:Array[
+//       Exercise:Object{}
+//     ]
+//   }
+// ]
 
 export class WorkoutStore {
   constructor(rootStore) {
